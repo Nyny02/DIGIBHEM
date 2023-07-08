@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hotel Registration Form</title>
+  </head>
+  <body>
+    <form id="hrform">
+      <fieldset>
+       <h1>Hotel Registration Form</h1>
+        <fieldset>
+          <legend><b>Enter Customer Information</b></legend>
+          <label for="customerName">Customer name:</label>
+          <input type="text" id="customerName" name="customerName" required><br><br>
+          <label for="checkinDate">Check-in Date:</label>  
+          <input type="date" id="checkinDate" name="checkinDate" required><br><br>
+          <label for="totalDays">Total No. of Days:</label>
+          <input type="number" id="totalDays" name="totalDays" required><br><br>
+          <label for="totalPersons">Total No. of Persons:</label>
+          <input type="number" id="totalPersons" name="totalPersons" required>
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend><b>Select Room Type</b></legend>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrUrnzdeODct8zOnDDQ8d0BhNpDURGgE9Q1g&usqp=CAU" alt="Deluxe Room">
+          <input type="radio" id="deluxe" name="roomInformation" value="Deluxe" required>    
+          <label for="deluxe">Deluxe Room(IR2500)</label>  
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIlDlgXGG3O_AQnDMwvnie8XERsivW4N645A&usqp=CAU" alt="Suite Room">    
+          <input type="radio" id="suite" name="roomInformation" value="Suite" required>
+          <label for="suite">Suite(IR4000)</label><br> 
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend><b>Select Amenities</b></legend>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCFMKje6rFyLF3Wf2R4dTC4TtDrvN4Phhw-Q&usqp=CAU" alt="AC" >
+          <input type="checkbox" id="ac" name="amenities" value="AC">
+          <label for="ac">Air Condition(IR1000)</label>
+          <img src="https://www.hotel-suppliers.com/wp-content/uploads/2021/05/featured-ar5-2.jpg" alt="Locker">
+          <input type="checkbox" id="locker" name="amenities" value="Locker">
+          <label for="locker">Locker(IR300)</label><br>
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend><b>Advanced Amount</b></legend>
+          <label for="advancedAmount">Advanced Amount:</label>
+          <input type="number" id="advancedAmount" name="advancedAmount" required><br><br>
+        </fieldset>
+        <br>
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+    <script>
+      document.getElementById("hrform").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Get form values
+        var name = document.getElementById("customerName").value;
+        var checkInDate = document.getElementById("checkinDate").value;
+        var totalDays = parseInt(document.getElementById("totalDays").value);
+        var totalPersons = parseInt(document.getElementById("totalPersons").value);
+        var roomInformation = document.querySelector('input[name="roomInformation"]:checked').value;
+        var amenities = [];
+        var amenityCheckboxes = document.querySelectorAll('input[name="amenities"]:checked');
+        amenityCheckboxes.forEach(function(checkbox) {
+          amenities.push(checkbox.value);
+        });
+        var advancedAmount = parseInt(document.getElementById("advancedAmount").value);
+
+        // Rates of the suite and deluxe room
+        var roomRates = {
+          Deluxe: 2500,
+          Suite: 4000,
+          AC: 1000,
+          Locker: 300
+        };
+
+        // Additional costs for any extra persons
+        var additionalCharge = 1000;
+        var additionalPersons = Math.max(totalPersons - 2, 0);
+        var additionalCharges = additionalCharge * additionalPersons * totalDays;
+
+        // Calculation of total costs
+        var roomRate = roomRates[roomInformation];
+        var totalCost = (roomRate + additionalCharges) * totalDays;
+
+        // Calculate balance amount
+        var balanceAmount = totalCost - advancedAmount;
+
+        // Show booking details
+        alert(
+          "Registration Successful!\n\nName: " +
+            name +
+            "\nCheck-in Date: " +
+            checkInDate +
+            "\nTotal No. of Days: " +
+            totalDays +
+            "\nTotal N0. of Persons: " +
+            totalPersons +
+            "\nRoom Information: " +
+            roomInformation +
+            "\nAmenities: " +
+            amenities.join(", ") +
+            "\nAdvanced Amount: " +
+            advancedAmount +
+            "\n\nTotal Cost: " +
+            totalCost +
+            "\nBalance Amount: " +
+            balanceAmount
+        );
+      });
+    </script>
+    <style>
+      
+      
+      
+      label{
+        font-family: 'Times New Roman';
+      }
+
+    title{
+        padding: fit-content;
+        width: fit-content;
+        height: fit-content;
+    }
+      h1{
+          text-align: center;
+          
+      }
+      h3{
+        text-align: center;
+      }
+      
+      body {
+           
+            background-image: url('https://img.freepik.com/premium-photo/fantastic-view-kirkjufellsfoss-waterfall-near-kirkjufell-mountain-sunset_761071-868.jpg?w=2000');
+          font-family: 'Times New Roman';
+          font-size: 18px;
+          }
+      
+      fieldset {
+        background-color: #eeeeeee5 ;
+        border-radius: 40px;
+        font-size: 24px;
+      }
+      
+      legend {
+        background-color: gray;
+        color: white;
+        border: 10px;
+        padding: fit-content;
+        width: fit-content;
+        height: fit-content;
+        
+      }
+      
+      input {
+        margin: 10px;
+        font-family: 'Times New Roman';
+      }
+      
+      input[type=text] {
+        border: 2px solid;
+        border-radius: 3px;
+        width: 250px;
+        height: 35px;
+        font-size: 20px;
+      }
+      
+      input[type=date] {
+        border: 2px solid ;
+        border-radius: 3px;
+        width: 250px;
+        height: 35px;
+        font-size: 20px;
+      }
+      
+      input[type=number] {
+        border: 2px solid;
+        border-radius: 3px;
+        width: 250px;
+        height: 35px;
+        font-size: 20px;
+      }
+      
+      
+      html{
+       font-family: 'Times New Roman';
+      }
+      
+      img{
+      
+          width: 225px;
+          height: 225px;
+          border-radius: 5px;
+          
+      }
+      
+      .finito{
+      text-align: center;
+      color: white;
+      size: 200px;
+      
+      
+      }
+      
+      .clm{
+        float: left;
+      }
+      
+      .button{
+        size: 40px;
+      }
+          </style>
+  </body>
+</html>
